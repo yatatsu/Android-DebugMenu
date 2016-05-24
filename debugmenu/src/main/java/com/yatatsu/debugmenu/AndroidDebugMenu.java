@@ -12,6 +12,7 @@ public class AndroidDebugMenu {
 
   private final Context context;
   private final List<DebugMenuItem> debugMenuItems;
+  private final int notiifcationId;
 
   static volatile AndroidDebugMenu instance;
 
@@ -33,6 +34,7 @@ public class AndroidDebugMenu {
   private AndroidDebugMenu(Builder builder) {
     this.context = builder.context;
     this.debugMenuItems = builder.debugMenuItems;
+    this.notiifcationId = builder.notificationId;
   }
 
   List<DebugMenuItem> getDebugMenuItems() {
@@ -42,7 +44,7 @@ public class AndroidDebugMenu {
   private void startDebugMenu() {
     NotificationCompat.Builder notificationBuilder =
         new NotificationCompat.Builder(context).setContentTitle("AndroidDebugMenu")
-            .setSmallIcon(android.R.drawable.ic_menu_call)
+            .setSmallIcon(R.drawable.ic_settings_black_24dp)
             .setContentText("Click to see current metrics")
             .setAutoCancel(false);
 
@@ -52,13 +54,14 @@ public class AndroidDebugMenu {
     notificationBuilder.setContentIntent(resultPendingIntent);
     NotificationManager notificationManager =
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-    notificationManager.notify(hashCode(), notificationBuilder.build());
+    notificationManager.notify(notiifcationId, notificationBuilder.build());
   }
 
   public static class Builder {
 
     private final Context context;
     private List<DebugMenuItem> debugMenuItems;
+    private int notificationId;
 
     public Builder(Context context) {
       this.context = context;
@@ -67,6 +70,11 @@ public class AndroidDebugMenu {
 
     public Builder addDevMenuItem(DebugMenuItem debugMenuItem) {
       debugMenuItems.add(debugMenuItem);
+      return this;
+    }
+
+    public Builder notificationId(int notificationId) {
+      this.notificationId = notificationId;
       return this;
     }
 

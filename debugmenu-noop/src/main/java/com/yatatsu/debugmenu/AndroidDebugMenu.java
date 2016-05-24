@@ -22,6 +22,10 @@ public class AndroidDebugMenu {
       return this;
     }
 
+    public Builder notificationId(int notificationId) {
+      return this;
+    }
+
     public AndroidDebugMenu build() {
       return new AndroidDebugMenu(this);
     }

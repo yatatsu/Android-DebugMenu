@@ -11,15 +11,21 @@ public class App extends Application {
   @Override public void onCreate() {
     super.onCreate();
 
-    AndroidDebugMenu.initialize(new AndroidDebugMenu.Builder(this)
-    .addDevMenuItem(new DebugMenuItem() {
-      @Override public void invoke(Context context) {
-        Log.d("AndroidDebugMenu", "debug");
-      }
+    AndroidDebugMenu.initialize(
+        new AndroidDebugMenu.Builder(this)
+            // Add menu
+            .addDevMenuItem(new DebugMenuItem() {
+              @Override public void invoke(Context context) {
+                Log.d("AndroidDebugMenu", "debug");
+              }
 
-      @Override public String getName() {
-        return "JUST LOGGING";
-      }
-    }).addDevMenuItem(new FireNotificationMenu()));
+              @Override public String getName() {
+                return "JUST LOGGING";
+              }
+            })
+            // Add menu
+            .addDevMenuItem(new FireNotificationMenu())
+            // Specify notification id for avoiding collision
+            .notificationId(99));
   }
 }
