@@ -16,6 +16,10 @@ public class App extends Application {
       @Override public void invoke(Context context) {
         Log.d("AndroidDebugMenu", "debug");
       }
-    }));
+
+      @Override public String getName() {
+        return "JUST LOGGING";
+      }
+    }).addDevMenuItem(new FireNotificationMenu()));
   }
 }
