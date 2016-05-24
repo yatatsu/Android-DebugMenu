@@ -15,7 +15,7 @@ public class AndroidDebugMenu {
 
   static volatile AndroidDebugMenu instance;
 
-  public static AndroidDebugMenu initialize(Builder builder) {
+  public static void initialize(Builder builder) {
     if (instance == null) {
       synchronized (AndroidDebugMenu.class) {
         if (instance == null) {
@@ -24,7 +24,6 @@ public class AndroidDebugMenu {
         }
       }
     }
-    return instance;
   }
 
   static AndroidDebugMenu getInstance() {

@@ -1,1 +1,1 @@
-include ':example', ':gradle-plugin', ':debugmenu'
+include ':example', ':debugmenu', ':debugmenu-noop'
