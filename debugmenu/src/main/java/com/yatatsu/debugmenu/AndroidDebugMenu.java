@@ -42,10 +42,11 @@ public class AndroidDebugMenu {
   }
 
   private void startDebugMenu() {
+    String appName = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
     NotificationCompat.Builder notificationBuilder =
         new NotificationCompat.Builder(context).setContentTitle("AndroidDebugMenu")
             .setSmallIcon(R.drawable.ic_settings_black_24dp)
-            .setContentText("Click to see current metrics")
+            .setContentText("Click to see debug menu for " + appName)
             .setAutoCancel(false);
 
     Intent resultIntent = new Intent(context, MenuActivity.class);
