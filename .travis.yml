@@ -1,0 +1,15 @@
+language: android
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-23.0.3
+    - android-23
+    - extra-android-m2repository
+    - extra-google-m2repository
+
+jdk:
+  - oraclejdk7
+
+script: ./gradlew clean check
