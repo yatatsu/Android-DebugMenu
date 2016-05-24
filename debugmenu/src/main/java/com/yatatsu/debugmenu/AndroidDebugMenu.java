@@ -12,7 +12,7 @@ public class AndroidDebugMenu {
 
   private final Context context;
   private final List<DebugMenuItem> debugMenuItems;
-  private final int notiifcationId;
+  private final int notificationId;
 
   static volatile AndroidDebugMenu instance;
 
@@ -34,7 +34,7 @@ public class AndroidDebugMenu {
   private AndroidDebugMenu(Builder builder) {
     this.context = builder.context;
     this.debugMenuItems = builder.debugMenuItems;
-    this.notiifcationId = builder.notificationId;
+    this.notificationId = builder.notificationId;
   }
 
   List<DebugMenuItem> getDebugMenuItems() {
@@ -54,7 +54,7 @@ public class AndroidDebugMenu {
     notificationBuilder.setContentIntent(resultPendingIntent);
     NotificationManager notificationManager =
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-    notificationManager.notify(notiifcationId, notificationBuilder.build());
+    notificationManager.notify(notificationId, notificationBuilder.build());
   }
 
   public static class Builder {
