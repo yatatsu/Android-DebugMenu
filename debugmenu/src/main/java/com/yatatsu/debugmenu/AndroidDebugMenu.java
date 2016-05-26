@@ -9,7 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AndroidDebugMenu {
+public final class AndroidDebugMenu {
 
   private final Context context;
   private final List<DebugMenuItem> debugMenuItems;
@@ -59,7 +59,7 @@ public class AndroidDebugMenu {
     notificationManager.notify(notificationId, notificationBuilder.build());
   }
 
-  public static class Builder {
+  public final static class Builder {
 
     private final Context context;
     private List<DebugMenuItem> debugMenuItems;
