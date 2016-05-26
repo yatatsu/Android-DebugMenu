@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class AndroidDebugMenu {
       this.debugMenuItems = new ArrayList<>();
     }
 
-    public Builder addDevMenuItem(DebugMenuItem debugMenuItem) {
+    public Builder addDebugMenuItem(DebugMenuItem debugMenuItem) {
       debugMenuItems.add(debugMenuItem);
       return this;
     }

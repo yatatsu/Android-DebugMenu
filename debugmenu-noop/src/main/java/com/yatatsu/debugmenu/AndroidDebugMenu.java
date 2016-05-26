@@ -18,7 +18,7 @@ public class AndroidDebugMenu {
     public Builder(Context context) {
     }
 
-    public Builder addDevMenuItem(DebugMenuItem debugMenuItem) {
+    public Builder addDebugMenuItem(DebugMenuItem debugMenuItem) {
       return this;
     }
 

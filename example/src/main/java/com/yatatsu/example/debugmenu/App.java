@@ -14,7 +14,7 @@ public class App extends Application {
     AndroidDebugMenu.initialize(
         new AndroidDebugMenu.Builder(this)
             // Add menu
-            .addDevMenuItem(new DebugMenuItem() {
+            .addDebugMenuItem(new DebugMenuItem() {
               @Override public void invoke(Context context) {
                 Log.d("AndroidDebugMenu", "debug");
               }
@@ -24,7 +24,7 @@ public class App extends Application {
               }
             })
             // Add menu
-            .addDevMenuItem(new FireNotificationMenu())
+            .addDebugMenuItem(new FireNotificationMenu())
             // Specify notification id for avoiding collision
             .notificationId(99));
   }
