@@ -33,7 +33,7 @@ public class MenuActivity extends AppCompatActivity {
 
   private class MenuAdapter extends ArrayAdapter<DebugMenuItem> {
 
-    public MenuAdapter(Context context, List<DebugMenuItem> debugMenuItems) {
+    MenuAdapter(Context context, List<DebugMenuItem> debugMenuItems) {
       super(context, android.R.layout.simple_list_item_1);
       addAll(debugMenuItems);
     }

@@ -7,27 +7,35 @@ import android.content.Context;
  */
 public class AndroidDebugMenu {
 
-  public static void initialize(Builder builder) {
+  public static void initialize(AndroidDebugMenu.Configuration configuration) {
   }
 
-  private AndroidDebugMenu(Builder builder) {
+  private AndroidDebugMenu(AndroidDebugMenu.Configuration configuration) {
   }
 
-  public static class Builder {
+  public final static class Configuration {
 
-    public Builder(Context context) {
+    private Configuration(AndroidDebugMenu.ConfigurationBuilder builder) {
+
     }
 
-    public Builder addDebugMenuItem(DebugMenuItem debugMenuItem) {
+  }
+
+  public final static class ConfigurationBuilder {
+
+    public ConfigurationBuilder(Context context) {
+    }
+
+    public AndroidDebugMenu.ConfigurationBuilder addDebugMenuItem(DebugMenuItem debugMenuItem) {
       return this;
     }
 
-    public Builder notificationId(int notificationId) {
+    public AndroidDebugMenu.ConfigurationBuilder notificationId(int notificationId) {
       return this;
     }
 
-    public AndroidDebugMenu build() {
-      return new AndroidDebugMenu(this);
+    public AndroidDebugMenu.Configuration build() {
+      return new AndroidDebugMenu.Configuration(this);
     }
   }
 }

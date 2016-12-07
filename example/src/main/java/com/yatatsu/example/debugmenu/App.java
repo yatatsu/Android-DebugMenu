@@ -12,7 +12,7 @@ public class App extends Application {
     super.onCreate();
 
     AndroidDebugMenu.initialize(
-        new AndroidDebugMenu.Builder(this)
+        new AndroidDebugMenu.ConfigurationBuilder(this)
             // Add menu
             .addDebugMenuItem(new DebugMenuItem() {
               @Override public void invoke(Context context) {
@@ -26,6 +26,6 @@ public class App extends Application {
             // Add menu
             .addDebugMenuItem(new FireNotificationMenu())
             // Specify notification id for avoiding collision
-            .notificationId(99));
+            .notificationId(99).build());
   }
 }

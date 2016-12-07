@@ -4,24 +4,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public final class AndroidDebugMenu {
 
-  private final Context context;
-  private final List<DebugMenuItem> debugMenuItems;
-  private final int notificationId;
+  private static volatile AndroidDebugMenu instance;
+  private final AndroidDebugMenu.Configuration configuration;
 
-  static volatile AndroidDebugMenu instance;
-
-  public static void initialize(Builder builder) {
+  public static void initialize(AndroidDebugMenu.Configuration configuration) {
     if (instance == null) {
       synchronized (AndroidDebugMenu.class) {
         if (instance == null) {
-          instance = builder.build();
+          instance = new AndroidDebugMenu(configuration);
           instance.startDebugMenu();
         }
       }
@@ -32,17 +29,16 @@ public final class AndroidDebugMenu {
     return instance;
   }
 
-  private AndroidDebugMenu(Builder builder) {
-    this.context = builder.context;
-    this.debugMenuItems = builder.debugMenuItems;
-    this.notificationId = builder.notificationId;
+  private AndroidDebugMenu(AndroidDebugMenu.Configuration configuration) {
+    this.configuration = configuration;
   }
 
   List<DebugMenuItem> getDebugMenuItems() {
-    return debugMenuItems;
+    return configuration.debugMenuItems;
   }
 
   private void startDebugMenu() {
+    Context context = configuration.context;
     String appName = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
     NotificationCompat.Builder notificationBuilder =
         new NotificationCompat.Builder(context).setContentTitle("AndroidDebugMenu")
@@ -56,32 +52,44 @@ public final class AndroidDebugMenu {
     notificationBuilder.setContentIntent(resultPendingIntent);
     NotificationManager notificationManager =
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-    notificationManager.notify(notificationId, notificationBuilder.build());
+    notificationManager.notify(configuration.notificationId, notificationBuilder.build());
   }
 
-  public final static class Builder {
+  public final static class Configuration {
+    private final Context context;
+    private final List<DebugMenuItem> debugMenuItems;
+    private final int notificationId;
+
+    private Configuration(AndroidDebugMenu.ConfigurationBuilder builder) {
+      this.context = builder.context;
+      this.debugMenuItems = builder.debugMenuItems;
+      this.notificationId = builder.notificationId;
+    }
+  }
+
+  public final static class ConfigurationBuilder {
 
     private final Context context;
     private List<DebugMenuItem> debugMenuItems;
     private int notificationId;
 
-    public Builder(Context context) {
+    public ConfigurationBuilder(Context context) {
       this.context = context;
       this.debugMenuItems = new ArrayList<>();
     }
 
-    public Builder addDebugMenuItem(DebugMenuItem debugMenuItem) {
+    public AndroidDebugMenu.ConfigurationBuilder addDebugMenuItem(DebugMenuItem debugMenuItem) {
       debugMenuItems.add(debugMenuItem);
       return this;
     }
 
-    public Builder notificationId(int notificationId) {
+    public AndroidDebugMenu.ConfigurationBuilder notificationId(int notificationId) {
       this.notificationId = notificationId;
       return this;
     }
 
-    public AndroidDebugMenu build() {
-      return new AndroidDebugMenu(this);
+    public AndroidDebugMenu.Configuration build() {
+      return new AndroidDebugMenu.Configuration(this);
     }
   }
 }
