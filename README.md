@@ -34,8 +34,6 @@ public class App extends Application {
 }
 ```
 
-In your
-
 For more, see example project.
 
 ## Download
