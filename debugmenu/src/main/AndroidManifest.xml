@@ -6,6 +6,7 @@
     <activity android:name="com.yatatsu.debugmenu.MenuActivity"
         android:launchMode="singleTop"
         android:exported="true"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         />
 
   </application>
