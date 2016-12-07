@@ -3,12 +3,12 @@ apply plugin: 'maven'
 group = 'com.github.yatatsu'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.3"
+  compileSdkVersion 25
+  buildToolsVersion "25.0.1"
 
   defaultConfig {
     minSdkVersion 14
-    targetSdkVersion 23
+    targetSdkVersion 25
   }
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
@@ -21,5 +21,5 @@ android {
 
 dependencies {
   testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.4.0'
+  compile 'com.android.support:appcompat-v7:25.0.1'
 }
