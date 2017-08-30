@@ -28,8 +28,11 @@ public class App extends Application {
             })
             // Add menu
             .addDebugMenuItem(new FireNotificationMenu())
-            // Specify notification id for avoiding collision
-            .notificationId(99).build());
+            // Set title (optional)
+            .title("debug menu for great app!")
+            // Set message (optional)
+            .description("click and open for debug!!")
+            .build());
   }
 }
 ```
