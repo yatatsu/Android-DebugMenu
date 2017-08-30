@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-  debugCompile project(':debugmenu')
-  releaseCompile project(':debugmenu-noop')
-  testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:26.0.1'
+  debugImplementation project(':debugmenu')
+  releaseImplementation project(':debugmenu-noop')
+  testImplementation 'junit:junit:4.12'
+  implementation 'com.android.support:appcompat-v7:26.0.1'
 }
