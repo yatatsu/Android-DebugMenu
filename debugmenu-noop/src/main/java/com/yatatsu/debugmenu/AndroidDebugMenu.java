@@ -34,6 +34,14 @@ public class AndroidDebugMenu {
       return this;
     }
 
+    public AndroidDebugMenu.ConfigurationBuilder title(String title) {
+      return this;
+    }
+
+    public AndroidDebugMenu.ConfigurationBuilder description(String description) {
+      return this;
+    }
+
     public AndroidDebugMenu.Configuration build() {
       return new AndroidDebugMenu.Configuration(this);
     }
