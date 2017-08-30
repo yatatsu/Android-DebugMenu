@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public final class AndroidDebugMenu {
   private final AndroidDebugMenu.Configuration configuration;
   private static final String DEFAULT_CHANNEL_NAME = "DebugMenu";
 
-  public static void initialize(AndroidDebugMenu.Configuration configuration) {
+  public static void initialize(@NonNull AndroidDebugMenu.Configuration configuration) {
     if (instance == null) {
       synchronized (AndroidDebugMenu.class) {
         if (instance == null) {
@@ -47,8 +49,8 @@ public final class AndroidDebugMenu {
 
     // create channel (for Android O+ target)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      NotificationChannel channel = new NotificationChannel(DEFAULT_CHANNEL_NAME,
-          "Debug Menu", NotificationManager.IMPORTANCE_MIN);
+      NotificationChannel channel = new NotificationChannel(DEFAULT_CHANNEL_NAME, "Debug Menu",
+          NotificationManager.IMPORTANCE_MIN);
       channel.setShowBadge(false);
       channel.enableLights(false);
       channel.enableVibration(false);
@@ -57,9 +59,10 @@ public final class AndroidDebugMenu {
 
     NotificationCompat.Builder notificationBuilder =
         new NotificationCompat.Builder(context, DEFAULT_CHANNEL_NAME)
-            .setContentTitle("AndroidDebugMenu")
+            .setContentTitle(configuration.title == null ? "AndroidDebugMenu" : configuration.title)
             .setSmallIcon(R.drawable.ic_settings_black_24dp)
-            .setContentText("Click to see debug menu for " + appName)
+            .setContentText(configuration.description == null
+                ? "Click to see debug menu for " + appName : configuration.description)
             .setAutoCancel(false);
 
     Intent resultIntent = new Intent(context, MenuActivity.class);
@@ -70,35 +73,75 @@ public final class AndroidDebugMenu {
   }
 
   public final static class Configuration {
-    private final Context context;
-    private final List<DebugMenuItem> debugMenuItems;
+    @NonNull private final Context context;
+    @NonNull private final List<DebugMenuItem> debugMenuItems;
     private final int notificationId;
+    @Nullable private final String title;
+    @Nullable private final String description;
 
-    private Configuration(AndroidDebugMenu.ConfigurationBuilder builder) {
+    private Configuration(@NonNull AndroidDebugMenu.ConfigurationBuilder builder) {
       this.context = builder.context;
       this.debugMenuItems = builder.debugMenuItems;
       this.notificationId = builder.notificationId;
+      this.title = builder.title;
+      this.description = builder.description;
     }
   }
 
   public final static class ConfigurationBuilder {
 
-    private final Context context;
-    private List<DebugMenuItem> debugMenuItems;
+    @NonNull private final Context context;
+    @NonNull private List<DebugMenuItem> debugMenuItems;
     private int notificationId;
+    @Nullable private String title;
+    @Nullable private String description;
 
-    public ConfigurationBuilder(Context context) {
+    public ConfigurationBuilder(@NonNull Context context) {
       this.context = context;
       this.debugMenuItems = new ArrayList<>();
     }
 
-    public AndroidDebugMenu.ConfigurationBuilder addDebugMenuItem(DebugMenuItem debugMenuItem) {
+    /**
+     * Add {@link DebugMenuItem}
+     *
+     * @param debugMenuItem
+     * @return
+     */
+    public AndroidDebugMenu.ConfigurationBuilder addDebugMenuItem(
+        @NonNull DebugMenuItem debugMenuItem) {
       debugMenuItems.add(debugMenuItem);
       return this;
     }
 
+    /**
+     * Set notificationId
+     *
+     * @param notificationId id
+     * @return builder instance
+     */
     public AndroidDebugMenu.ConfigurationBuilder notificationId(int notificationId) {
       this.notificationId = notificationId;
+      return this;
+    }
+
+    /**
+     * Set title for notification
+     *
+     * @param title title
+     * @return builder instance
+     */
+    public AndroidDebugMenu.ConfigurationBuilder title(@Nullable String title) {
+      this.title = title;
+      return this;
+    }
+
+    /**
+     * Set description for notification
+     * @param description description
+     * @return builder instance
+     */
+    public AndroidDebugMenu.ConfigurationBuilder description(@Nullable String description) {
+      this.description = description;
       return this;
     }
 
