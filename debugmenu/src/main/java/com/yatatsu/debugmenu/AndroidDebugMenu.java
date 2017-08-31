@@ -48,6 +48,7 @@ public final class AndroidDebugMenu {
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
     // create channel (for Android O+ target)
+    final NotificationCompat.Builder notificationBuilder;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       NotificationChannel channel = new NotificationChannel(DEFAULT_CHANNEL_NAME, "Debug Menu",
           NotificationManager.IMPORTANCE_MIN);
@@ -55,15 +56,18 @@ public final class AndroidDebugMenu {
       channel.enableLights(false);
       channel.enableVibration(false);
       notificationManager.createNotificationChannel(channel);
+      // constructor with channel is added in support library r26
+      notificationBuilder = new NotificationCompat.Builder(context, DEFAULT_CHANNEL_NAME);
+    } else {
+      notificationBuilder = new NotificationCompat.Builder(context);
     }
 
-    NotificationCompat.Builder notificationBuilder =
-        new NotificationCompat.Builder(context, DEFAULT_CHANNEL_NAME)
-            .setContentTitle(configuration.title == null ? "AndroidDebugMenu" : configuration.title)
-            .setSmallIcon(R.drawable.ic_settings_black_24dp)
-            .setContentText(configuration.description == null
-                ? "Click to see debug menu for " + appName : configuration.description)
-            .setAutoCancel(false);
+    notificationBuilder
+        .setContentTitle(configuration.title == null ? "AndroidDebugMenu" : configuration.title)
+        .setSmallIcon(R.drawable.ic_settings_black_24dp)
+        .setContentText(configuration.description == null
+            ? "Click to see debug menu for " + appName : configuration.description)
+        .setAutoCancel(false);
 
     Intent resultIntent = new Intent(context, MenuActivity.class);
     PendingIntent resultPendingIntent =
