@@ -50,8 +50,9 @@ public final class AndroidDebugMenu {
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
     // create channel (for Android O+ target)
-    final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    final NotificationCompat.Builder notificationBuilder;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+        && applicationInfo.targetSdkVersion >= Build.VERSION_CODES.O) {
       NotificationChannel channel = new NotificationChannel(DEFAULT_CHANNEL_NAME, "Debug Menu",
           NotificationManager.IMPORTANCE_MIN);
       channel.setShowBadge(false);
@@ -59,7 +60,9 @@ public final class AndroidDebugMenu {
       channel.enableVibration(false);
       notificationManager.createNotificationChannel(channel);
       // constructor with channel is added in support library r26
-      notificationBuilder.setChannelId(DEFAULT_CHANNEL_NAME);
+      notificationBuilder = new NotificationCompat.Builder(context, DEFAULT_CHANNEL_NAME);
+    } else {
+      notificationBuilder = new NotificationCompat.Builder(context);
     }
 
     notificationBuilder
