@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,12 +44,13 @@ public final class AndroidDebugMenu {
 
   private void startDebugMenu() {
     Context context = configuration.context;
-    String appName = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+    ApplicationInfo applicationInfo = context.getApplicationInfo();
+    String appName = applicationInfo.loadLabel(context.getPackageManager()).toString();
     NotificationManager notificationManager =
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
     // create channel (for Android O+ target)
-    final NotificationCompat.Builder notificationBuilder;
+    final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       NotificationChannel channel = new NotificationChannel(DEFAULT_CHANNEL_NAME, "Debug Menu",
           NotificationManager.IMPORTANCE_MIN);
@@ -57,9 +59,7 @@ public final class AndroidDebugMenu {
       channel.enableVibration(false);
       notificationManager.createNotificationChannel(channel);
       // constructor with channel is added in support library r26
-      notificationBuilder = new NotificationCompat.Builder(context, DEFAULT_CHANNEL_NAME);
-    } else {
-      notificationBuilder = new NotificationCompat.Builder(context);
+      notificationBuilder.setChannelId(DEFAULT_CHANNEL_NAME);
     }
 
     notificationBuilder
