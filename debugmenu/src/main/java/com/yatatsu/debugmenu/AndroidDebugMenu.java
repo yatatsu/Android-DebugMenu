@@ -7,9 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,6 +114,7 @@ public final class AndroidDebugMenu {
      * @param debugMenuItem
      * @return
      */
+    @NonNull
     public AndroidDebugMenu.ConfigurationBuilder addDebugMenuItem(
         @NonNull DebugMenuItem debugMenuItem) {
       debugMenuItems.add(debugMenuItem);
@@ -126,6 +127,7 @@ public final class AndroidDebugMenu {
      * @param notificationId id
      * @return builder instance
      */
+    @NonNull
     public AndroidDebugMenu.ConfigurationBuilder notificationId(int notificationId) {
       this.notificationId = notificationId;
       return this;
@@ -147,11 +149,13 @@ public final class AndroidDebugMenu {
      * @param description description
      * @return builder instance
      */
+    @NonNull
     public AndroidDebugMenu.ConfigurationBuilder description(@Nullable String description) {
       this.description = description;
       return this;
     }
 
+    @NonNull
     public AndroidDebugMenu.Configuration build() {
       return new AndroidDebugMenu.Configuration(this);
     }

@@ -3,6 +3,7 @@ package com.yatatsu.example.debugmenu;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import com.yatatsu.debugmenu.AndroidDebugMenu;
 import com.yatatsu.debugmenu.DebugMenuItem;
 
@@ -15,10 +16,11 @@ public class App extends Application {
         new AndroidDebugMenu.ConfigurationBuilder(this)
             // Add menu
             .addDebugMenuItem(new DebugMenuItem() {
-              @Override public void invoke(Context context) {
+              @Override public void invoke(@NonNull Context context) {
                 Log.d("AndroidDebugMenu", "debug");
               }
 
+              @NonNull
               @Override public String getName() {
                 return "JUST LOGGING";
               }

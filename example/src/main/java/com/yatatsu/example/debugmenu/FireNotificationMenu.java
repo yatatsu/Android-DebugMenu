@@ -3,12 +3,13 @@ package com.yatatsu.example.debugmenu;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.support.v4.app.NotificationCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import com.yatatsu.debugmenu.DebugMenuItem;
 
 
 public class FireNotificationMenu implements DebugMenuItem {
-  @Override public void invoke(Context context) {
+  @Override public void invoke(@NonNull Context context) {
     Notification notification =
         new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher)
             .setContentText("Notification for DEBUG")
@@ -22,6 +23,7 @@ public class FireNotificationMenu implements DebugMenuItem {
     manager.notify(0, notification);
   }
 
+  @NonNull
   @Override public String getName() {
     return "FIRE NOTIFICATION";
   }
