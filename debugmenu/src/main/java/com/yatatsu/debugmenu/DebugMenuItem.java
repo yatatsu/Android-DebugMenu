@@ -1,6 +1,7 @@
 package com.yatatsu.debugmenu;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 
 public interface DebugMenuItem {
 
@@ -9,12 +10,12 @@ public interface DebugMenuItem {
    *
    * @param context context
    */
-  void invoke(Context context);
+  void invoke(@NonNull Context context);
 
   /**
    * menu name
    *
    * @return name for menu
    */
-  String getName();
+  @NonNull String getName();
 }

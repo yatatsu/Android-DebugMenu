@@ -1,10 +1,10 @@
 *.iml
 .gradle
 local.properties
-gradle.properties
 .idea/*.xml
 .idea/.*
 .idea/*/*.xml
+.idea/caches
 !.idea/codeStyleSettings.xml
 .DS_Store
 /build
